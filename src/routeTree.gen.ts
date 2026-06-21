@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DeliveryRouteImport } from './routes/delivery'
@@ -22,6 +23,11 @@ import { Route as ShopSlugRouteImport } from './routes/shop.$slug'
 const WishlistRoute = WishlistRouteImport.update({
   id: '/wishlist',
   path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/delivery': typeof DeliveryRoute
   '/faq': typeof FaqRoute
   '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/delivery': typeof DeliveryRoute
   '/faq': typeof FaqRoute
   '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop': typeof ShopIndexRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/delivery': typeof DeliveryRoute
   '/faq': typeof FaqRoute
   '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/wishlist': typeof WishlistRoute
   '/shop/$slug': typeof ShopSlugRoute
   '/shop/': typeof ShopIndexRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/faq'
     | '/projects'
+    | '/sitemap.xml'
     | '/wishlist'
     | '/shop/$slug'
     | '/shop/'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/faq'
     | '/projects'
+    | '/sitemap.xml'
     | '/wishlist'
     | '/shop/$slug'
     | '/shop'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/delivery'
     | '/faq'
     | '/projects'
+    | '/sitemap.xml'
     | '/wishlist'
     | '/shop/$slug'
     | '/shop/'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   DeliveryRoute: typeof DeliveryRoute
   FaqRoute: typeof FaqRoute
   ProjectsRoute: typeof ProjectsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WishlistRoute: typeof WishlistRoute
   ShopSlugRoute: typeof ShopSlugRoute
   ShopIndexRoute: typeof ShopIndexRoute
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/wishlist'
       fullPath: '/wishlist'
       preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -222,6 +242,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeliveryRoute: DeliveryRoute,
   FaqRoute: FaqRoute,
   ProjectsRoute: ProjectsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   WishlistRoute: WishlistRoute,
   ShopSlugRoute: ShopSlugRoute,
   ShopIndexRoute: ShopIndexRoute,
