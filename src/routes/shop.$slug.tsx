@@ -81,7 +81,7 @@ function ProductPage() {
               <div className="mt-6">
                 <p className="text-sm font-semibold">Colour:</p>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {p.colors.map((c) => (
+                  {p.colors.map((c: string) => (
                     <button key={c} onClick={() => setColor(c)} className={`rounded-full border px-4 py-1.5 text-sm ${color === c ? "border-accent bg-accent/10" : "border-border"}`}>{c}</button>
                   ))}
                 </div>
