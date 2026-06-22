@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 
 const variants: Record<string, Variants> = {
   up: {
@@ -37,7 +37,7 @@ export function Reveal({
   delay?: number;
   direction?: keyof typeof variants;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
   once?: boolean;
   amount?: number;
 }) {
