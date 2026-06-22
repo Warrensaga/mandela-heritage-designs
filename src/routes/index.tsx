@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout";
 import { ProductCard } from "@/components/product-card";
 import { Reveal, RevealStagger, revealItem } from "@/components/reveal";
-import { motion } from "framer-motion";
 import { products, fmtKES, waLink, waQuote, waGeneral } from "@/data/products";
 
 export const Route = createFileRoute("/")({
