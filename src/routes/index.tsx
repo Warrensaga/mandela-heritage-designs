@@ -306,9 +306,9 @@ function Index() {
               <p className="mt-1 text-sm font-semibold text-accent">{s.price}</p>
               <p className="mt-3 flex-1 text-sm text-muted-foreground">{s.body}</p>
               <a href={waQuote} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block w-fit rounded-full border border-charcoal px-5 py-2 text-sm font-semibold text-charcoal hover:bg-charcoal hover:text-cream">WhatsApp to Discuss →</a>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       </section>
 
       {/* TRANSFORMATIONS — before/after sliders */}
