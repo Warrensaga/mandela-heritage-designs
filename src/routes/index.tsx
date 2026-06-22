@@ -38,7 +38,7 @@ function HeroCarousel() {
   }, [paused]);
   const s = heroSlides[i];
   return (
-    <div className="relative h-[50vh] w-full overflow-hidden lg:h-screen" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div className="relative h-[70vh] min-h-[520px] w-full overflow-hidden lg:h-[calc(100vh-4rem)]" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <AnimatePresence mode="sync">
         <motion.img
           key={s.image}
@@ -51,23 +51,54 @@ function HeroCarousel() {
           transition={{ duration: 0.8, ease: "easeInOut" }}
         />
       </AnimatePresence>
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={s.name}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="absolute bottom-8 left-6 hidden max-w-md text-cream sm:block md:bottom-12 md:left-12"
-        >
-          <p className="font-mono text-xs uppercase tracking-widest text-accent">{s.tag}</p>
-          <h3 className="mt-2 font-display text-2xl font-bold">{s.name}</h3>
-          <p className="mt-1 font-bold">{s.price}</p>
-          <a href={s.wa} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block rounded-full bg-accent px-5 py-2 text-sm font-semibold text-cream">Order on WhatsApp →</a>
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/55 to-charcoal/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
+
+      <div className="relative z-10 mx-auto flex h-full max-w-[1500px] flex-col justify-center px-6 py-16 text-cream lg:px-16">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={s.name}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-2xl"
+          >
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">{s.tag}</p>
+          </motion.div>
+        </AnimatePresence>
+
+        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-5 font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+          Timeless<br />
+          <span className="italic text-accent">Furniture</span> for Nairobi
+        </motion.h1>
+
+        <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="mt-5 max-w-xl text-base text-cream/85 sm:text-lg">
+          Handcrafted pieces and full furnishing services for Nairobi homes and offices. Free delivery over KES 30,000.
+        </motion.p>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={s.name + "-card"}
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="mt-8 hidden w-fit rounded-2xl border border-cream/20 bg-charcoal/40 p-5 backdrop-blur-md sm:block"
+          >
+            <p className="text-xs uppercase tracking-widest text-cream/70">Featured</p>
+            <h3 className="mt-1 font-display text-xl font-bold">{s.name}</h3>
+            <p className="mt-0.5 text-sm font-semibold text-accent">{s.price}</p>
+          </motion.div>
+        </AnimatePresence>
+
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-8 flex flex-wrap gap-3">
+          <Link to="/shop" className="rounded-full bg-accent px-7 py-3 text-sm font-semibold text-cream transition hover:bg-accent/90">Shop Collection →</Link>
+          <a href={s.wa} target="_blank" rel="noopener noreferrer" className="rounded-full border border-cream/40 bg-cream/10 px-7 py-3 text-sm font-semibold text-cream backdrop-blur transition hover:bg-cream hover:text-charcoal">Order on WhatsApp</a>
         </motion.div>
-      </AnimatePresence>
-      <div className="absolute bottom-4 right-6 flex gap-2">
+      </div>
+
+      <div className="absolute bottom-6 right-6 z-10 flex gap-2">
         {heroSlides.map((_, idx) => (
           <button key={idx} onClick={() => setI(idx)} aria-label={`Slide ${idx + 1}`} className={`h-2 rounded-full transition-all ${idx === i ? "w-8 bg-accent" : "w-2 bg-cream/50"}`} />
         ))}
@@ -105,32 +136,15 @@ function Index() {
 
   return (
     <Layout>
-      {/* HERO */}
-      <section className="bg-cream">
-        <div className="mx-auto grid max-w-[1500px] grid-cols-1 lg:grid-cols-[55%_45%]">
-          <div className="flex flex-col justify-center px-6 py-12 lg:px-16 lg:py-0">
-            <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
-              Mandela Heritage — Nairobi
-            </motion.p>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="mt-4 font-display text-5xl font-bold leading-[1.05] text-charcoal sm:text-6xl lg:text-7xl">
-              Timeless<br />
-              <span className="italic text-accent">Furniture</span><br />
-              for Nairobi
-            </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-6 max-w-md text-base text-muted-foreground sm:text-lg">
-              Handcrafted pieces built with premium sustainable materials designed to elevate your Nairobi home and lifestyle through the years.
-            </motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-8 flex flex-wrap gap-3">
-              <Link to="/shop" className="rounded-full bg-charcoal px-7 py-3 text-sm font-semibold text-cream transition hover:bg-charcoal/90">Shop Collection →</Link>
-              <Link to="/about" className="rounded-full border border-charcoal px-7 py-3 text-sm font-semibold text-charcoal transition hover:bg-charcoal hover:text-cream">Our Story</Link>
-            </motion.div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-6">
-              <Stat n="2.4K+" label="Happy Clients" />
-              <Stat n="340+" label="Unique Pieces" />
-              <Stat n="15yr" label="Craftsmanship" />
-            </motion.div>
+      {/* HERO — full-width carousel */}
+      <section className="bg-charcoal">
+        <HeroCarousel />
+        <div className="border-t border-border bg-cream">
+          <div className="mx-auto grid max-w-7xl grid-cols-3 gap-6 px-6 py-8">
+            <Stat n="2.4K+" label="Happy Clients" />
+            <Stat n="340+" label="Unique Pieces" />
+            <Stat n="15yr" label="Craftsmanship" />
           </div>
-          <HeroCarousel />
         </div>
       </section>
 
