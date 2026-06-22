@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout } from "@/components/layout";
 import { ProductCard } from "@/components/product-card";
+import { Reveal, RevealStagger, revealItem } from "@/components/reveal";
 import { products, fmtKES, waLink, waQuote, waGeneral } from "@/data/products";
 
 export const Route = createFileRoute("/")({
@@ -169,68 +170,76 @@ function Index() {
 
       {/* SHOP BY CATEGORY */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <SectionHeading pre="Shop by" accent="Category" link={{ to: "/shop", label: "View all categories →" }} />
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Reveal><SectionHeading pre="Shop by" accent="Category" link={{ to: "/shop", label: "View all categories →" }} /></Reveal>
+        <RevealStagger className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
             { name: "Living Room", count: "12 items", img: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80" },
             { name: "Bedroom", count: "6 items", img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=700&q=80" },
             { name: "Dining", count: "6 items", img: "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=700&q=80" },
             { name: "Office", count: "6 items", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=80" },
           ].map((c) => (
-            <Link key={c.name} to="/shop" className="group relative aspect-square overflow-hidden rounded-xl">
-              <img src={c.img} alt={c.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <motion.div key={c.name} variants={revealItem}>
+            <Link to="/shop" className="group relative block aspect-square overflow-hidden rounded-xl">
+              <img src={c.img} alt={c.name} className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 to-transparent" />
               <div className="absolute bottom-4 left-4 text-cream">
                 <h3 className="font-display text-xl font-bold">{c.name}</h3>
                 <p className="text-xs text-cream/70">{c.count}</p>
               </div>
             </Link>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       </section>
 
       {/* BEST SELLERS */}
       <section className="bg-surface py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading pre="Our" accent="Best Sellers" link={{ to: "/shop", label: "View all products →" }} />
-          <div className="mb-8 flex flex-wrap gap-2">
+          <Reveal><SectionHeading pre="Our" accent="Best Sellers" link={{ to: "/shop", label: "View all products →" }} /></Reveal>
+          <Reveal delay={0.1}><div className="mb-8 flex flex-wrap gap-2">
             {["All", "Sofas", "Bedroom", "Dining", "Office", "Accent"].map((t) => (
               <button key={t} onClick={() => setTab(t)} className={`rounded-full px-4 py-2 text-sm font-medium transition ${tab === t ? "bg-accent text-cream" : "border border-border bg-card text-muted-foreground hover:text-charcoal"}`}>{t}</button>
             ))}
-          </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((p) => <ProductCard key={p.id} p={p} />)}
-          </div>
+          </div></Reveal>
+          <RevealStagger className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((p) => (
+              <motion.div key={p.id} variants={revealItem}><ProductCard p={p} /></motion.div>
+            ))}
+          </RevealStagger>
         </div>
       </section>
 
       {/* NEW ARRIVALS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <SectionHeading pre="New" accent="Arrivals" link={{ to: "/shop", label: "View all →" }} />
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {newArrivals.map((p) => <ProductCard key={p.id} p={p} />)}
-        </div>
+        <Reveal><SectionHeading pre="New" accent="Arrivals" link={{ to: "/shop", label: "View all →" }} /></Reveal>
+        <RevealStagger className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {newArrivals.map((p) => (
+            <motion.div key={p.id} variants={revealItem}><ProductCard p={p} /></motion.div>
+          ))}
+        </RevealStagger>
       </section>
 
       {/* SPECIAL OFFERS */}
       <section className="bg-surface py-20">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading pre="Special" accent="Offers" link={{ to: "/shop", label: "View all deals →" }} />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {offers.map((p) => <ProductCard key={p.id} p={p} />)}
-          </div>
+          <Reveal><SectionHeading pre="Special" accent="Offers" link={{ to: "/shop", label: "View all deals →" }} /></Reveal>
+          <RevealStagger className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {offers.map((p) => (
+              <motion.div key={p.id} variants={revealItem}><ProductCard p={p} /></motion.div>
+            ))}
+          </RevealStagger>
           <p className="mt-6 text-center text-xs italic text-muted-foreground">* Offers valid while stock lasts. WhatsApp to confirm availability.</p>
         </div>
       </section>
 
       {/* TWO PATH */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <RevealStagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {[
             { icon: "🛋️", title: "FURNITURE STORE", body: "Browse our full catalogue — sofas, bedroom suites, dining sets, office furniture and accent pieces. Available for immediate purchase and Nairobi-wide delivery.", cta: "Browse Catalogue →", href: "/shop", internal: true },
             { icon: "🏠", title: "FURNISHING SERVICES", body: "We design and furnish entire homes, offices, and commercial spaces. From concept to completion. Tell us your space — we handle everything else.", cta: "Get a Quote →", href: waQuote, internal: false },
           ].map((c) => (
-            <div key={c.title} className="flex flex-col rounded-2xl border border-border bg-card p-10">
+            <motion.div key={c.title} variants={revealItem} whileHover={{ y: -6 }} transition={{ duration: 0.3 }} className="flex flex-col rounded-2xl border border-border bg-card p-10 transition-shadow hover:shadow-xl">
               <div className="text-5xl">{c.icon}</div>
               <p className="mt-6 font-mono text-xs uppercase tracking-widest text-accent">{c.title}</p>
               <p className="mt-4 flex-1 text-base text-charcoal/80">{c.body}</p>
@@ -239,23 +248,23 @@ function Index() {
               ) : (
                 <a href={c.href} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block w-fit rounded-full bg-accent px-6 py-3 text-sm font-semibold text-cream">{c.cta}</a>
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       </section>
 
       {/* BRAND STORY */}
       <section className="bg-surface py-20">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 lg:grid-cols-2 lg:items-center">
-          <div className="relative">
+          <Reveal direction="left" className="relative">
             <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80" alt="Craftsman" className="aspect-[4/5] w-full rounded-2xl object-cover" />
             <img src="https://images.unsplash.com/photo-1611486212557-88be5ff6f941?auto=format&fit=crop&w=500&q=80" alt="Wood grain" className="absolute -bottom-8 -right-4 hidden h-48 w-48 rounded-xl object-cover shadow-2xl ring-8 ring-surface md:block" />
             <div className="absolute -left-4 top-8 rounded-2xl bg-accent p-5 text-cream shadow-xl">
               <div className="font-display text-3xl font-black">15 YRS</div>
               <div className="text-xs uppercase tracking-wider">Working<br />Craftsmanship</div>
             </div>
-          </div>
-          <div>
+          </Reveal>
+          <Reveal direction="right">
             <h2 className="font-display text-4xl font-bold leading-tight sm:text-5xl">
               Furniture should<br /><span className="italic text-accent">tell a story</span>
             </h2>
@@ -277,29 +286,29 @@ function Index() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* FURNISHING SERVICES */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <SectionHeading pre="Furnishing" accent="Services" />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Reveal><SectionHeading pre="Furnishing" accent="Services" /></Reveal>
+        <RevealStagger className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {[
             { icon: "🏠", title: "Full Home Furnishing", price: "Starting from KES 150,000", body: "Moving into a new home? We handle furniture selection, delivery, placement and styling." },
             { icon: "🛋️", title: "Single Room Makeover", price: "Starting from KES 50,000", body: "Transform one room at a time. We source, deliver, and style everything perfectly." },
             { icon: "🏢", title: "Office Furnishing", price: "Custom Quote", body: "Complete office solutions for startups, corporates and commercial spaces." },
             { icon: "🚚", title: "Delivery & Installation", price: "WhatsApp for Rates", body: "Professional delivery and installation across all Nairobi neighbourhoods." },
           ].map((s) => (
-            <div key={s.title} className="flex flex-col rounded-2xl border border-border bg-card p-8">
+            <motion.div key={s.title} variants={revealItem} whileHover={{ y: -4 }} transition={{ duration: 0.3 }} className="flex flex-col rounded-2xl border border-border bg-card p-8 transition-shadow hover:shadow-lg">
               <div className="text-4xl">{s.icon}</div>
               <h3 className="mt-4 font-display text-2xl font-bold">{s.title}</h3>
               <p className="mt-1 text-sm font-semibold text-accent">{s.price}</p>
               <p className="mt-3 flex-1 text-sm text-muted-foreground">{s.body}</p>
               <a href={waQuote} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block w-fit rounded-full border border-charcoal px-5 py-2 text-sm font-semibold text-charcoal hover:bg-charcoal hover:text-cream">WhatsApp to Discuss →</a>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </RevealStagger>
       </section>
 
       {/* TRANSFORMATIONS — before/after sliders */}
